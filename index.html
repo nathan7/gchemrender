@@ -1,0 +1,31 @@
+<html>
+	<head>	
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+		<script src="canto.js"></script>
+		<script src="gchemrender.js"></script>
+	</head>
+	<body>
+		<!-- select --><br />
+		<canvas id="canvas" style="height: 98.5%;"></canvas>
+		<script>
+			var doc;
+			$(function(){
+				$('select').change(function(){
+					model=$('select').val();
+					file='/stuff/'+model+'.gchempaint';
+					console.log('Loading '+file);
+					window.location.href='#'+model;
+					$.get(file,null,function(data){
+						console.log(file+' loaded');
+						renderFile(data,'canvas');
+					},'xml');
+				});
+				if(window.location.hash){
+					$('select').val(window.location.hash.substr(1,window.location.hash.length));
+				}
+				$('select').change();
+			});
+		</script>
+
+	</body>
+</html>
