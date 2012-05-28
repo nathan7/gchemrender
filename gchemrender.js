@@ -16,6 +16,16 @@ function renderFile(doc,canvas_){
 	canvas.width=maxx+50;
 	canvas.height=maxy+50;
 	canvas.font=fontdef;
+    renderDoc(doc,canvas);
+}
+function parseAtom(atom){
+	return {
+		x:	parseFloat($('position',atom).attr('x')),
+		y:	parseFloat($('position',atom).attr('y')),
+		e:	$(atom).attr('element'),
+	};
+}
+function renderDoc(doc,canvas){
 	$('bond',doc).each(function(){
 		begin=parseAtom($("#"+$(this).attr('begin'),doc));
 		end=parseAtom($("#"+$(this).attr('end'),doc));
@@ -48,11 +58,4 @@ function renderFile(doc,canvas_){
 		atom=parseAtom(this);
 		if(atom.e!='C') canvas.fillText(atom.e,atom.x-(canvas.textWidth(atom.e)/2),atom.y+(textsize*0.375));
 	});
-}
-function parseAtom(atom){
-	return {
-		x:	parseFloat($('position',atom).attr('x')),
-		y:	parseFloat($('position',atom).attr('y')),
-		e:	$(atom).attr('element'),
-	};
 }
